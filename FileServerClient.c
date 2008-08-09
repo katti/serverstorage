@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <arpa/inet.h>
     #include <stdlib.h>
     #include <errno.h>
     #include <string.h>
@@ -32,6 +33,13 @@
         printf("Connected.\n");
 
         while(printf("> "), fgets(str, 100, stdin), !feof(stdin)) {
+
+	
+	if((sizeof(str)/sizeof(*str)) > 1 && str[1] > 32) {
+		printf("incorrect command\n");
+		exit(0);
+        } 
+	
             if (send(s, str, strlen(str), 0) == -1) {
                 perror("send");
                 exit(1);
